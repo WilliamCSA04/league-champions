@@ -9,7 +9,7 @@ interface Props {
 const { champion } = Astro.props
 ---
 
-<a href={`/champion/${champion.id}`} class="block relative">
+<a href={`/champion/${champion.id}`} class="block relative transform transition duration-500 hover:scale-110">
   <img src={getLoadingURL(champion.id)} alt={champion.name} />
   <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">{champion.name}</span>
 </a>
