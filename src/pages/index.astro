@@ -1,6 +1,7 @@
 ---
 import ChampionSplash from '@components/ChampionSplash.astro';
 import Layout from '@layouts/Layout.astro';
+import Main from '@layouts/Main.astro';
 import { getChampions } from '@services/riot';
 import { parseToArray } from '@utils/object';
 
@@ -10,13 +11,15 @@ const champions = parseToArray(dataOfChampions)
 ---
 
 <Layout title="League of Legends champions">
-	<main>
-    <div class="flex flex-wrap">
-		  {
-			  champions?.map((champion) => (
-          <ChampionSplash champion={champion} />
+	<Main>
+    <div class="flex flex-wrap justify-center">
+      {
+        champions?.map((champion) => (
+          <div class="p-5">
+            <ChampionSplash champion={champion} />
+          </div>
         ))
       }
     </div>
-	</main>
+	</Main>
 </Layout>
