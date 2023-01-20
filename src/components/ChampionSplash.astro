@@ -1,15 +1,17 @@
 ---
-import type { Champion } from "@services/riot";
+import type { Champion, ChampionReduced } from "@services/riot";
 import { getLoadingURL } from "@utils/riot";
 
 interface Props {
-  champion: Champion
+  champion: ChampionReduced
 }
 
 const { champion } = Astro.props
 ---
 
 <a href={`/champion/${champion.id}`} class="block relative transform transition duration-500 hover:scale-110">
-  <img src={getLoadingURL(champion.id)} alt={champion.name} />
-  <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">{champion.name}</span>
+  <img src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" width="277" height="505" loading="lazy" />
+  <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-xl">
+    {champion.name}
+  </span>
 </a>

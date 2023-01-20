@@ -1,12 +1,15 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import { getChampions } from "@services/riot";
+import Main from "@layouts/Main.astro";
+import { Champion, getChampion, getChampions } from "@services/riot";
 import { parseToArray } from "@utils/object";
+import { getLoadingURL } from "@utils/riot";
 
 export async function getStaticPaths() {
   const dataOfChampions = await getChampions()
   const champions = parseToArray(dataOfChampions)
-  const pages = champions.map((champion) => ({
+  const championFullData = await Promise.all(champions.map((champion) => getChampion(champion.id)))
+  const pages = championFullData.map((champion) => ({
     name: champion.id,
     champion,
   }))
@@ -17,8 +20,23 @@ export async function getStaticPaths() {
     };
   });
 }
+
+interface Props {
+  champion: Champion
+}
+
 const { champion } = Astro.props;
 ---
 <Layout title={champion.name}>
-  teste
+  <Main>
+    <div class="flex"> 
+      <img src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" width="277" height="505" />
+      <div class="flex flex-col">
+        <h2>{champion.name}, {champion.title}</h2>
+        <p>
+          {champion.lore}
+        </p>
+      </div>
+    </div>
+  </Main>
 </Layout>
