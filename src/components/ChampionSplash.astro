@@ -1,0 +1,15 @@
+---
+import type { Champion } from "@services/riot";
+import { getLoadingURL } from "@utils/riot";
+
+interface Props {
+  champion: Champion
+}
+
+const { champion } = Astro.props
+---
+
+<a href={`/champion/${champion.id}`} class="block relative">
+  <img src={getLoadingURL(champion.id)} alt={champion.name} />
+  <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">{champion.name}</span>
+</a>

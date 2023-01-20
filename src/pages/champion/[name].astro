@@ -1,0 +1,24 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getChampions } from "@services/riot";
+import { parseToArray } from "@utils/object";
+
+export async function getStaticPaths() {
+  const dataOfChampions = await getChampions()
+  const champions = parseToArray(dataOfChampions)
+  const pages = champions.map((champion) => ({
+    name: champion.id,
+    champion,
+  }))
+  return pages.map(({ name, champion }) => {
+    return {
+      params: { name },
+      props: { champion },
+    };
+  });
+}
+const { champion } = Astro.props;
+---
+<Layout title={champion.name}>
+  teste
+</Layout>
