@@ -16,7 +16,7 @@ const champions = parseToArray(dataOfChampions)
       {
         champions?.map((champion, index) => (
           <div class="p-5">
-            <ChampionSplash champion={champion} isLazy={index > 20} />
+            <ChampionSplash champion={champion} isLazy={index > 10} />
           </div>
         ))
       }
