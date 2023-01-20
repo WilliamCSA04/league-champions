@@ -1,16 +1,17 @@
 ---
-import type { Champion, ChampionReduced } from "@services/riot";
+import type { ChampionReduced } from "@services/riot";
 import { getLoadingURL } from "@utils/riot";
 
 interface Props {
   champion: ChampionReduced
+  isLazy: boolean
 }
 
-const { champion } = Astro.props
+const { champion, isLazy } = Astro.props
 ---
 
 <a href={`/champion/${champion.id}`} class="block relative transform transition duration-500 hover:scale-110">
-  <img src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" width="277" height="505" loading="lazy" />
+  <img src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" width="277" height="505" loading={isLazy ? "lazy" : "eager"} />
   <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-xl">
     {champion.name}
   </span>

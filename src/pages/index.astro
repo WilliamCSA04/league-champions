@@ -14,9 +14,9 @@ const champions = parseToArray(dataOfChampions)
 	<Main>
     <div class="flex flex-wrap justify-center">
       {
-        champions?.map((champion) => (
+        champions?.map((champion, index) => (
           <div class="p-5">
-            <ChampionSplash champion={champion} />
+            <ChampionSplash champion={champion} isLazy={index > 20} />
           </div>
         ))
       }
