@@ -10,7 +10,7 @@ interface Props {
 const { champion, isLazy } = Astro.props
 ---
 
-<a href={`/champion/${champion.id}`} class="block relative transform transition duration-500 hover:scale-110">
+<a href={`/champion/${champion.id}`} rel="prefetch" class="block relative transform transition duration-500 hover:scale-110">
   <img src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" width="308" height="560" loading={isLazy ? "lazy" : "eager"} />
   <span class="absolute bottom-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white font-bold text-xl">
     {champion.name}
