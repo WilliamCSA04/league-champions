@@ -11,3 +11,7 @@ export function getSpellURL(path: string) {
 export function getPassiveURL(path: string) {
   return `${BASE_DRAGON_URL}/13.1.1${PASSIVE_PATH}/${path}`
 }
+
+export function removeDoubleBR(text: string) {
+  return text.replaceAll("<br><br>", "<br>")
+}

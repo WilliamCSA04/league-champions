@@ -3,7 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import { Champion, getChampion, getChampions } from "@services/riot";
 import { parseToArray } from "@utils/object";
-import { getLoadingURL, getPassiveURL, getSpellURL } from "@utils/riot";
+import { getLoadingURL, getPassiveURL, getSpellURL, removeDoubleBR } from "@utils/riot";
 
 export async function getStaticPaths() {
   const dataOfChampions = await getChampions()
@@ -45,7 +45,7 @@ const { champion } = Astro.props;
             </div>
             <div class="ml-5 flex flex-col flex-start">
               <h3 class="font-bold">{champion.passive.name}</h3>
-              <p set:html={champion.passive.description} />
+              <p set:html={removeDoubleBR(champion.passive.description)} />
             </div>
           </li>
           {
@@ -55,8 +55,8 @@ const { champion } = Astro.props;
                   <img class="max-w-none" src={getSpellURL(spell.image.full)} alt={spell.name} />
                 </div>
                 <div class="ml-5 flex flex-col flex-start">
-                  <h3 class="font-bold">{spell.name}</h3>
-                  <p set:html={spell.description} />
+                  <h3 class="font-bold text-sm">{spell.name}</h3>
+                  <p set:html={removeDoubleBR(spell.description)} />
                 </div>
               </li>
             ))
