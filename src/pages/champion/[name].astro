@@ -3,7 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import { Champion, getChampion, getChampions } from "@services/riot";
 import { parseToArray } from "@utils/object";
-import { getLoadingURL } from "@utils/riot";
+import { getLoadingURL, getSpellURL } from "@utils/riot";
 
 export async function getStaticPaths() {
   const dataOfChampions = await getChampions()
@@ -29,13 +29,30 @@ const { champion } = Astro.props;
 ---
 <Layout title={champion.name}>
   <Main>
-    <div class="flex p-5"> 
-      <img src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" width="308" height="560" />
-      <div class="flex flex-col ml-5">
+    <div class="flex grid-cols-2 p-5"> 
+      <div style="width: 308px; height: 560px" class="bg-slate-900 text-transparent mr-5">
+        <img class="max-w-none" src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" />
+      </div>
+      <div class="flex flex-col">
         <h2 class="text-2xl font-bold">{champion.name}, {champion.title}</h2>
         <p class="mt-10">
           {champion.lore}
         </p>
+        <ul class="mt-5">
+          {
+            champion.spells.map((spell) => (
+              <li class="flex mb-5">
+                <div>
+                  <img src={getSpellURL(spell.image.full)} alt={spell.name} />
+                </div>
+                <div class="ml-5 flex flex-col flex-start">
+                  <h3 class="font-bold">{spell.name}</h3>
+                  <p>{spell.description}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
       </div>
     </div>
   </Main>
