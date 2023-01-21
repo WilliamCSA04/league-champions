@@ -30,23 +30,42 @@ const { champion } = Astro.props;
 ---
 <Layout title={champion.name}>
   <Main>
-    <div class="flex grid-cols-2 p-5"> 
-      <div style="width: 308px; height: 560px" class="bg-slate-900 text-transparent mr-5">
-        <img class="max-w-none" src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" width="308" height="560" />
+    <div class="flex flex-col p-5 space-y-8">
+      <div class="flex grid-cols-2"> 
+        <div style="width: 308px; height: 560px" class="bg-slate-900 text-transparent mr-5">
+          <img class="max-w-none" src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" width="308" height="560" />
+        </div>
+        <div class="flex flex-col">
+          <h2 class="text-2xl font-bold">{champion.name}, {champion.title}</h2>
+          <p class="mt-10">
+            {champion.lore}
+          </p>
+          <ul class="mt-5 flex justify-between flex-col flex-grow">
+            <SpellItem data={champion.passive} fnHandler={getPassiveURL} />
+            {
+              champion.spells.map((spell, index) => (
+                <SpellItem data={spell} fnHandler={getSpellURL} />
+              ))
+            }
+          </ul>
+        </div>
       </div>
-      <div class="flex flex-col">
-        <h2 class="text-2xl font-bold">{champion.name}, {champion.title}</h2>
-        <p class="mt-10">
-          {champion.lore}
-        </p>
-        <ul class="mt-5 flex justify-between flex-col flex-grow">
-          <SpellItem data={champion.passive} fnHandler={getPassiveURL} />
+      <div>
+        <h3 class="text-2xl font-bold mb-4">Skins:</h3>
+        <div class="flex justify-between flex-wrap">
           {
-            champion.spells.map((spell) => (
-              <SpellItem data={spell} fnHandler={getSpellURL} />
-            ))
+            champion.skins.map((skin, index) => {
+              const isLazy = index > 5
+              return (
+                skin.num ? (
+                  <div style="width: 308px; height: 560px" class="m-2 text-transparent">
+                    <img src={getLoadingURL(champion.id, skin.num)} alt={skin.name} width="308" height="560" loading={isLazy ? 'lazy' : 'eager'} />
+                  </div>
+                ) : null
+              )
+            })
           }
-        </ul>
+        </div>
       </div>
     </div>
   </Main>

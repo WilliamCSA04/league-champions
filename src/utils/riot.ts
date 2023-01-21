@@ -1,7 +1,7 @@
 import { BASE_DRAGON_URL, LOADING_PATH, PASSIVE_PATH, SPELL_PATH } from "src/config/riot";
 
-export function getLoadingURL(path: string) {
-  return `${BASE_DRAGON_URL}${LOADING_PATH}/${path}_0.jpg`
+export function getLoadingURL(path: string, number?: number | string) {
+  return `${BASE_DRAGON_URL}${LOADING_PATH}/${path}_${number ?? 0}.jpg`
 }
 
 export function getSpellURL(path: string) {
