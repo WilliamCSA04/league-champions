@@ -1,0 +1,27 @@
+---
+import type { Spell } from '@services/riot';
+import { removeDoubleBR } from '@utils/riot';
+
+type Data = {
+  image: Spell['image'],
+  name: Spell['name'],
+  description: Spell['description'],
+}
+
+interface Props {
+  fnHandler: (path: string) => string 
+  data: Data
+}
+
+const { fnHandler, data } = Astro.props
+
+---
+<li class="flex mb-4">
+  <div class="w-16 h-16">
+    <img class="max-w-none" src={fnHandler(data.image.full)} alt={data.name} />
+  </div>
+  <div class="ml-5 flex flex-col flex-start">
+    <h3 class="font-bold text-sm">{data.name}</h3>
+    <p set:html={removeDoubleBR(data.description)} />
+  </div>
+</li>

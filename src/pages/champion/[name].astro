@@ -1,4 +1,5 @@
 ---
+import SpellItem from "@components/SpellItem.astro";
 import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import { Champion, getChampion, getChampions } from "@services/riot";
@@ -39,26 +40,10 @@ const { champion } = Astro.props;
           {champion.lore}
         </p>
         <ul class="mt-5 flex justify-between flex-col flex-grow">
-          <li class="flex mb-4">
-            <div class="w-16 h-16">
-              <img class="max-w-none" src={getPassiveURL(champion.passive.image.full)} alt={champion.passive.name} />
-            </div>
-            <div class="ml-5 flex flex-col flex-start">
-              <h3 class="font-bold">{champion.passive.name}</h3>
-              <p set:html={removeDoubleBR(champion.passive.description)} />
-            </div>
-          </li>
+          <SpellItem data={champion.passive} fnHandler={getPassiveURL} />
           {
             champion.spells.map((spell) => (
-              <li class="flex mb-4">
-                <div class="w-16 h-16">
-                  <img class="max-w-none" src={getSpellURL(spell.image.full)} alt={spell.name} />
-                </div>
-                <div class="ml-5 flex flex-col flex-start">
-                  <h3 class="font-bold text-sm">{spell.name}</h3>
-                  <p set:html={removeDoubleBR(spell.description)} />
-                </div>
-              </li>
+              <SpellItem data={spell} fnHandler={getSpellURL} />
             ))
           }
         </ul>
