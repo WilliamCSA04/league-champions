@@ -3,7 +3,7 @@ import Layout from "@layouts/Layout.astro";
 import Main from "@layouts/Main.astro";
 import { Champion, getChampion, getChampions } from "@services/riot";
 import { parseToArray } from "@utils/object";
-import { getLoadingURL, getSpellURL } from "@utils/riot";
+import { getLoadingURL, getPassiveURL, getSpellURL } from "@utils/riot";
 
 export async function getStaticPaths() {
   const dataOfChampions = await getChampions()
@@ -39,6 +39,15 @@ const { champion } = Astro.props;
           {champion.lore}
         </p>
         <ul class="mt-5">
+          <li class="flex mb-5">
+            <div>
+              <img src={getPassiveURL(champion.passive.image.full)} alt={champion.passive.name} />
+            </div>
+            <div class="ml-5 flex flex-col flex-start">
+              <h3 class="font-bold">{champion.passive.name}</h3>
+              <p>{champion.passive.description}</p>
+            </div>
+          </li>
           {
             champion.spells.map((spell) => (
               <li class="flex mb-5">
