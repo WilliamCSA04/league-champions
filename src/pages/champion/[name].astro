@@ -32,7 +32,7 @@ const { champion } = Astro.props;
   <Main>
     <div class="flex grid-cols-2 p-5"> 
       <div style="width: 308px; height: 560px" class="bg-slate-900 text-transparent mr-5">
-        <img class="max-w-none" src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" />
+        <img class="max-w-none" src={getLoadingURL(champion.id)} alt={champion.name} class="brightness-75" width="308" height="560" />
       </div>
       <div class="flex flex-col">
         <h2 class="text-2xl font-bold">{champion.name}, {champion.title}</h2>

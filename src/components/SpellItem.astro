@@ -18,7 +18,7 @@ const { fnHandler, data } = Astro.props
 ---
 <li class="flex mb-4">
   <div class="w-16 h-16">
-    <img class="max-w-none" src={fnHandler(data.image.full)} alt={data.name} />
+    <img class="max-w-none" src={fnHandler(data.image.full)} alt={data.name} width="64" height="64" />
   </div>
   <div class="ml-5 flex flex-col flex-start">
     <h3 class="font-bold text-sm">{data.name}</h3>
